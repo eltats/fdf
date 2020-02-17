@@ -6,7 +6,7 @@
 /*   By: wkraig <wkraig@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 17:12:48 by wkraig            #+#    #+#             */
-/*   Updated: 2020/02/17 18:56:28 by wkraig           ###   ########.fr       */
+/*   Updated: 2020/02/17 18:57:38 by wkraig           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,6 @@ void	create_figure(t_win *win, t_data *data)
 {
 	int		i;
 	int		j;
-	int		len;
 	t_map	coord;
 	float	isox;
 	float	isox1;
@@ -121,11 +120,11 @@ void	create_figure(t_win *win, t_data *data)
 	float	temp_y1;
 	float	temp_x1;
 
-	len = 0;
+	i = 0;
 	ft_bzero(&coord, sizeof(t_map));
-	while (data->map[len])
-		len++;
-	coord.start_x = 2000 / len;
+	while (data->map[i])
+		i++;
+	coord.start_x = 2000 / i;
 	coord.start_y = 1200 / data->size;
 	i = 0;
 	while (data->map[i])
