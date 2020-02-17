@@ -6,7 +6,7 @@
 /*   By: wkraig <wkraig@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 17:12:48 by wkraig            #+#    #+#             */
-/*   Updated: 2020/02/17 18:49:42 by wkraig           ###   ########.fr       */
+/*   Updated: 2020/02/17 18:50:35 by wkraig           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,8 @@ void	create_figure(t_win *win, t_data *data)
 			// isoy1 = (coord.x2 + coord.y2) / 2;
 			// coord.x2 = isox1;
 			// coord.y2 = isoy1;
-			draw_line_x(&coord, win);
+			if (j != data->size)
+				draw_line_x(&coord, win);
 			coord.y2 += 25;
 			coord.x2 = coord.x1;
 			draw_line_y(&coord, win);
