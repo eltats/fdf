@@ -6,7 +6,7 @@
 /*   By: wkraig <wkraig@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 17:12:48 by wkraig            #+#    #+#             */
-/*   Updated: 2020/02/17 18:10:18 by wkraig           ###   ########.fr       */
+/*   Updated: 2020/02/17 18:49:42 by wkraig           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,14 @@ void	create_figure(t_win *win, t_data *data)
 	int		i;
 	int		j;
 	t_map	coord;
+	float	isox;
+	float	isox1;
+	float	isoy;
+	float	isoy1;
+	float	temp_y;
+	float	temp_x;
+	float	temp_y1;
+	float	temp_x1;
 
 	i = 0;
 	ft_bzero(&coord, sizeof(t_map));
@@ -123,18 +131,20 @@ void	create_figure(t_win *win, t_data *data)
 	{
 		j = 0;
 		coord.x = 0;
-		while (j < data->size)
+		while (j <= data->size)
 		{
 			coord.x1 = coord.start_x + coord.x;
 			coord.x2 = coord.start_x + coord.x + 25;
 			coord.y1 = coord.start_y + coord.y;
 			coord.y2 = coord.start_y + coord.y;
-// x' = x*cos(a) - y*sin(a)
-// y' = x*sin(a) + y*cos(a)
-			coord.x1 *= sin(1);
-			coord.x2 *= sin(1);
-			coord.y1 *= sin(1);
-			coord.y2 *= sin(1);
+			// isox = coord.x1 - coord.y1;
+			// isoy = (coord.x1 + coord.y1) / 2;
+			// coord.x1 = isox;
+			// coord.y1 = isoy;
+			// isox1 = coord.x2 - coord.y2;
+			// isoy1 = (coord.x2 + coord.y2) / 2;
+			// coord.x2 = isox1;
+			// coord.y2 = isoy1;
 			draw_line_x(&coord, win);
 			coord.y2 += 25;
 			coord.x2 = coord.x1;
