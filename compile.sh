@@ -1,0 +1,1 @@
+gcc *.c -L libft -lft -lmlx -framework OpenGL -framework AppKit -g
