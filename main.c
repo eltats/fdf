@@ -6,7 +6,7 @@
 /*   By: wkraig <wkraig@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 17:12:48 by wkraig            #+#    #+#             */
-/*   Updated: 2020/02/17 18:58:51 by wkraig           ###   ########.fr       */
+/*   Updated: 2020/02/17 19:50:11 by wkraig           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,19 +138,21 @@ void	create_figure(t_win *win, t_data *data)
 			coord.x2 = coord.start_x + coord.x + 25;
 			coord.y1 = coord.start_y + coord.y;
 			coord.y2 = coord.start_y + coord.y;
-			// isox = coord.x1 - coord.y1;
-			// isoy = (coord.x1 + coord.y1) / 2;
-			// coord.x1 = isox;
-			// coord.y1 = isoy;
-			// isox1 = coord.x2 - coord.y2;
-			// isoy1 = (coord.x2 + coord.y2) / 2;
-			// coord.x2 = isox1;
-			// coord.y2 = isoy1;
+
+			// coord.x1 = (coord.x1 - coord.y1) * cos(1);
+			// coord.y1 = -data->map[i][j] + (coord.x1 + coord.y1) * cos(1);
+			// coord.x2 = (coord.x2 - coord.y2) * cos(1);
+			// coord.y2 = -data->map[i][j] + (coord.x2 + coord.y2) * sin(1);
 			if (j != data->size)
 				draw_line_x(&coord, win);
+			coord.x2 -= 25;
 			coord.y2 += 25;
-			coord.x2 = coord.x1;
-			if (i < len)
+
+			// coord.x1 = (coord.x1 - coord.y1) * cos(1);
+			// coord.y1 = -data->map[i][j] + (coord.x1 + coord.y1) * cos(1);
+			// coord.x2 = (coord.x2 - coord.y2) * cos(1);
+			// coord.y2 = -data->map[i][j] + (coord.x2 + coord.y2) * sin(1);
+			if (i < len - 1)
 				draw_line_y(&coord, win);
 			coord.x += 25;
 			j++;
