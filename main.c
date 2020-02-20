@@ -6,54 +6,12 @@
 /*   By: wkraig <wkraig@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 17:12:48 by wkraig            #+#    #+#             */
-/*   Updated: 2020/02/20 03:39:10 by wkraig           ###   ########.fr       */
+/*   Updated: 2020/02/20 08:01:12 by wkraig           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-void	draw_line_x(t_map coord, t_win *win, int z, int z0)
-{
-	t_line	line;
-	t_map	copy;
-	int		color;
-
-	ft_bzero(&line, sizeof(line));
-	copy = coord;
-	copy.x2 += 25;
-	color = 0xAFFFFF;
-	if (z || z0)
-		color = 0xFF0000;
-	if (win->iso_f)
-	{
-		iso(&copy.x1, &copy.y1, z * win->angle_x);
-		iso(&copy.x2, &copy.y2, z0 * win->angle_x);
-	}
-	line.step = 1;
-	line.d_real = ft_abs(copy.y2 - copy.y1) / ft_abs(copy.x2 - copy.x1);
-	printf("%f\n", line.d_real);
-	if (copy.x1 > copy.x2)
-	{
-		ft_swap(&copy.x1, &copy.x2);
-		ft_swap(&copy.y1, &copy.y2);
-	}
-	line.x = copy.x1;
-	line.y = copy.y1;
-	if (line.y > copy.y2)
-		line.step = -1;
-	line.d_act = 0;
-	while (line.x <= copy.x2)
-	{
-		mlx_pixel_put(win->ptr, win->wind, (int)line.x, (int)line.y, color);
-		line.x++;
-		line.d_act += line.d_real;
-		if (line.d_act > 0.5)
-		{
-			line.y += line.step;
-			line.d_act--;
-		}
-	}
-}
+void	draw_line_x(t_map coord, t_win *win, int z, int z0);
 
 void	draw_line_y(t_map coord, t_win *win, int z, int z0)
 {
@@ -64,15 +22,21 @@ void	draw_line_y(t_map coord, t_win *win, int z, int z0)
 	color = 0xAFFFFF;
 	ft_bzero(&line, sizeof(line));
 	copy = coord;
-	copy.y2 += 25;
-
-	// printf("%d\n", ft_abs(copy.y2 - copy.y1) > ft_abs(copy.x2 - copy.x1));
+	if (win->dv == false)
+		copy.y2 += 25;
 	if (z || z0)
 		color = 0xFF0000;
-	if (win->iso_f)
+	if (win->iso_f && win->dv == false)
 	{
-		iso(&copy.x1, &copy.y1, z * win->angle_x);
-		iso(&copy.x2, &copy.y2, z0 * win->angle_x);
+		iso(&copy.x1, &copy.y1, z * win->z_zoom, win);
+		iso(&copy.x2, &copy.y2, z0 * win->z_zoom, win);
+	}
+	if (ft_abs(copy.x2 - copy.x1) > ft_abs(copy.y2 - copy.y1))
+	{
+		win->dv = true;
+		draw_line_x(copy, win, z, z0);
+		win->dv = false;
+		return ; 
 	}
 	line.step = 1;
 	line.d_real = ft_abs(copy.x2 - copy.x1) / ft_abs(copy.y2 - copy.y1);
@@ -94,6 +58,56 @@ void	draw_line_y(t_map coord, t_win *win, int z, int z0)
 		if (line.d_act > 0.5)
 		{
 			line.x += line.step;
+			line.d_act--;
+		}
+	}
+}
+
+void	draw_line_x(t_map coord, t_win *win, int z, int z0)
+{
+	t_line	line;
+	t_map	copy;
+	int		color;
+
+	ft_bzero(&line, sizeof(line));
+	copy = coord;
+	if (win->dv == false)
+		copy.x2 += 25;
+	color = 0xAFFFFF;
+	if (z || z0)
+		color = 0xFF0000;
+	if (win->iso_f && win->dv == false)
+	{
+		iso(&copy.x1, &copy.y1, z * win->z_zoom, win);
+		iso(&copy.x2, &copy.y2, z0 * win->z_zoom, win);
+	}
+	if (ft_abs(copy.x2 - copy.x1) < ft_abs(copy.y2 - copy.y1))
+	{
+		win->dv = true;
+		draw_line_y(copy, win, z, z0);
+		win->dv = false;
+		return ; 
+	}
+	line.step = 1;
+	line.d_real = ft_abs(copy.y2 - copy.y1) / ft_abs(copy.x2 - copy.x1);
+	if (copy.x1 > copy.x2)
+	{
+		ft_swap(&copy.x1, &copy.x2);
+		ft_swap(&copy.y1, &copy.y2);
+	}
+	line.x = copy.x1;
+	line.y = copy.y1;
+	if (line.y > copy.y2)
+		line.step = -1;
+	line.d_act = 0;
+	while (line.x <= copy.x2)
+	{
+		mlx_pixel_put(win->ptr, win->wind, (int)line.x, (int)line.y, color);
+		line.x++;
+		line.d_act += line.d_real;
+		if (line.d_act > 0.5)
+		{
+			line.y += line.step;
 			line.d_act--;
 		}
 	}
@@ -149,11 +163,13 @@ void	create_figure(t_win *win, t_figure *changes)
 			coord.y1 = win->start_y + coord.y;
 			coord.y2 = win->start_y + coord.y;
 			if (j < win->size - 1)
-					ft_draw(coord, win, win->map[i][j], win->map[i][j + 1]);
+				// ft_draw(coord, win, win->map[i][j], win->map[i][j + 1]);
+				draw_line_x(coord, win, win->map[i][j], win->map[i][j + 1]);
 			if (i < len - 1 && j < win->size)
 			{
 				win->y = true;
-				ft_draw(coord, win, win->map[i][j], win->map[i + 1][j]);
+				// ft_draw(coord, win, win->map[i][j], win->map[i][j + 1]);
+				draw_line_y(coord, win, win->map[i][j], win->map[i + 1][j]);
 			}
 			coord.x += 25;
 			j++;
@@ -167,19 +183,19 @@ int	keys(int key, t_win *win)
 {
 	t_figure *changes;
 //  
-	// printf("%d\n", key);
+	printf("%d\n", key);
 	changes = (t_figure *)ft_memalloc(sizeof(t_figure));
 	if (key == 123 || key == 124)
 	{
-		changes->move_x = 5;
-		key == 124 ? changes->move_x = -5 : 0;
+		changes->move_x = 25;
+		key == 124 ? changes->move_x = -25 : 0;
 		mlx_clear_window(win->ptr, win->wind);
 		create_figure(win, changes);
 	}
 	if (key == 126 || key == 125)
 	{
-		changes->move_y = 5;
-		key == 125 ? changes->move_y = -5 : 0;
+		changes->move_y = 25;
+		key == 125 ? changes->move_y = -25 : 0;
 		mlx_clear_window(win->ptr, win->wind);
 		create_figure(win, changes);
 	}
@@ -191,13 +207,22 @@ int	keys(int key, t_win *win)
 	}
 	if (key == 47)
 	{
-		win->angle_x *= 1.1;
+		if (win->z_zoom < 60)
+			win->z_zoom *= 1.1;
 		mlx_clear_window(win->ptr, win->wind);
 		create_figure(win, changes);
 	}
 	if (key == 43)
 	{
-		win->angle_x /= 1.1;
+		if (win->z_zoom > 1)
+			win->z_zoom /= 1.1;
+		mlx_clear_window(win->ptr, win->wind);
+		create_figure(win, changes);
+	}
+	if (key == 91 || key == 84)
+	{
+		win->angle_x += 0.1;
+		key == 84 ? win->angle_x -= 0.2 : 0;
 		mlx_clear_window(win->ptr, win->wind);
 		create_figure(win, changes);
 	}
@@ -233,13 +258,10 @@ int main(int ac, char **av)
 		changes = (t_figure *)ft_memalloc(sizeof(t_figure));
 		win->wind = mlx_new_window(win->ptr, 2000, 1200, "roflan");
 		win->iso_f = true;
+		win->z_zoom = 1;
 		win->angle_x = 1;
+		win->dv = false;
 		create_figure(win, changes);
-		// copy.x1 = 100;
-		// copy.x2 = 110;
-		// copy.y1 = 400;
-		// copy.y2 = 100;
-		// ft_draw(copy, win, 0, 0);
 		mlx_key_hook(win->wind, exit_form, (void *)0);
 		mlx_hook(win->wind, 2, 0, keys, win);
 		mlx_loop(win->ptr);

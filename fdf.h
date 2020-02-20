@@ -6,7 +6,7 @@
 /*   By: wkraig <wkraig@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 17:12:50 by wkraig            #+#    #+#             */
-/*   Updated: 2020/02/20 02:44:04 by wkraig           ###   ########.fr       */
+/*   Updated: 2020/02/20 07:44:21 by wkraig           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,11 @@ typedef struct s_win
 	void	*wind;
 	float	start_x;
 	float	start_y;
+	float	z_zoom;
 	float	angle_x;
 	bool	iso_f;
 	bool	y;
+	bool	dv;
 }				t_win;
 
 typedef struct	s_map
@@ -60,7 +62,7 @@ typedef struct	s_line
 
 void	ft_swap(float *a, float *b);
 float	ft_abs(float a);
-void	iso(float *x, float *y, int z);
+void	iso(float *x, float *y, int z, t_win *win);
 int		ft_atoi_base_16(char *str);
 int		ft_numlen(char *res);
 int		**split_to_arr(char **res, t_win *parse);

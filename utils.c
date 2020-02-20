@@ -6,7 +6,7 @@
 /*   By: wkraig <wkraig@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 18:44:28 by wkraig            #+#    #+#             */
-/*   Updated: 2020/02/20 03:42:00 by wkraig           ###   ########.fr       */
+/*   Updated: 2020/02/20 07:57:25 by wkraig           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,15 @@ float	ft_abs(float a)
 	return (a);
 }
 
-void	iso(float *x, float *y, int z)
+void	iso(float *x, float *y, int z, t_win *win)
 {
 	float x2;
 	float	y2;
 
 	x2 = *x;
 	y2 = *y;
-	*y = cos(1) * *y - sin(1) * z;
-	// *x = sin(1) * *x - cos(1) * z;
+	*y = cos(win->angle_x) * *y - sin(win->angle_x) * z;
+	// *x = sin(win->angle_x) * *x - cos(win->angle_x) * z;
 	// *y = cos(1) * *y - sin(1) - z;
 	// *x = sin(1) * *x - cos(1) - z;
 	// *y = x * cos
