@@ -6,7 +6,7 @@
 /*   By: wkraig <wkraig@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 17:12:50 by wkraig            #+#    #+#             */
-/*   Updated: 2020/02/20 07:44:21 by wkraig           ###   ########.fr       */
+/*   Updated: 2020/02/20 17:25:48 by wkraig           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,13 @@ typedef struct s_win
 	float	start_y;
 	float	z_zoom;
 	float	angle_x;
-	bool	iso_f;
-	bool	y;
+	float	angle_y;
+	float	angle_z;
+	bool	iso;
 	bool	dv;
+	bool	angle_is;
+	// bool	y;
+	bool	angle;
 }				t_win;
 
 typedef struct	s_map
@@ -60,6 +64,8 @@ typedef struct	s_line
 	float		step;
 }				t_line;
 
+void	angle(float *x, float *y, int *z, t_win *win);
+void	draw_line_x(t_map coord, t_win *win, int z, int z0);
 void	ft_swap(float *a, float *b);
 float	ft_abs(float a);
 void	iso(float *x, float *y, int z, t_win *win);

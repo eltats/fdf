@@ -6,7 +6,7 @@
 /*   By: wkraig <wkraig@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 17:12:45 by wkraig            #+#    #+#             */
-/*   Updated: 2020/02/19 23:51:45 by wkraig           ###   ########.fr       */
+/*   Updated: 2020/02/20 17:49:05 by wkraig           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ int		**split_to_arr(char **res, t_win *parse)
 		i++;
 	}
 	parse->map[i] = NULL;
-	parse->start_x = 2000 / i;
-	parse->start_y = 1200 / j * 15;
+	parse->start_x = 0;
+	parse->start_y = 0;
 	return (parse->map);
 }
 

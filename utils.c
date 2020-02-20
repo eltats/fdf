@@ -6,12 +6,30 @@
 /*   By: wkraig <wkraig@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 18:44:28 by wkraig            #+#    #+#             */
-/*   Updated: 2020/02/20 07:57:25 by wkraig           ###   ########.fr       */
+/*   Updated: 2020/02/20 17:23:29 by wkraig           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // добавить некоторые в либу
 #include "fdf.h"
+
+void	angle(float *x, float *y, int *z, t_win *win)
+{
+	float	prev_x;
+	float	prev_y;
+	float	prev_z;
+
+	prev_x = *x;
+	prev_y = *y;
+	prev_z = *z;
+
+	if (win->angle_x != 0)
+	{
+		// *z *= win->z_zoom;
+		*y = prev_y * cos(win->angle_x) + prev_z * sin(win->angle_x);
+		*z = -prev_y * sin(win->angle_x) + prev_z * cos(win->angle_x);
+	}
+}
 
 void	ft_swap(float *a, float *b)
 {
@@ -30,18 +48,20 @@ float	ft_abs(float a)
 	return (a);
 }
 
+void	rotate(float *x, float *y, int z, t_win *win)
+{
+	
+}
+
 void	iso(float *x, float *y, int z, t_win *win)
 {
-	float x2;
+	float	x2;
 	float	y2;
 
 	x2 = *x;
 	y2 = *y;
-	*y = cos(win->angle_x) * *y - sin(win->angle_x) * z;
-	// *x = sin(win->angle_x) * *x - cos(win->angle_x) * z;
-	// *y = cos(1) * *y - sin(1) - z;
-	// *x = sin(1) * *x - cos(1) - z;
-	// *y = x * cos
+	*x = (x2 - y2) * cos(0.523599);
+	*y = -z + (x2 + y2) * sin(0.523599);
 }
 
 static int		find_num(char c)
