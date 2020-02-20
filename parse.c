@@ -6,7 +6,7 @@
 /*   By: wkraig <wkraig@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 17:12:45 by wkraig            #+#    #+#             */
-/*   Updated: 2020/02/17 17:56:44 by wkraig           ###   ########.fr       */
+/*   Updated: 2020/02/19 23:51:45 by wkraig           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		ft_filenum(char *res)
 	}
 	return (len);
 }
-int		**split_to_arr(char **res, t_data *parse)
+int		**split_to_arr(char **res, t_win *parse)
 {
 	int		i;
 	int		j;
@@ -64,23 +64,26 @@ int		**split_to_arr(char **res, t_data *parse)
 		i++;
 	}
 	parse->map[i] = NULL;
+	parse->start_x = 2000 / i;
+	parse->start_y = 1200 / j * 15;
 	return (parse->map);
 }
 
-int		**parser(int fd, t_data *parse)
+int		**parser(int fd, t_win *win)
 {
 	char	buf[251];
 	char	*line;
 	int		ret;
 	char	**map;
 
+	line = NULL;
 	while((ret = read(fd, buf, 250)))
 	{
 		buf[ret] = '\0';
 		if (!line)
-			line = ft_strnew(0);
+			line = ft_strnew(1);
 		line = ft_strjoin(line, buf);
 	}
 	map = ft_strsplit(line, '\n');
-	return (split_to_arr(map, parse));
+	return (split_to_arr(map, win));
 }

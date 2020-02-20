@@ -6,20 +6,30 @@
 /*   By: wkraig <wkraig@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 17:12:50 by wkraig            #+#    #+#             */
-/*   Updated: 2020/02/17 17:58:05 by wkraig           ###   ########.fr       */
+/*   Updated: 2020/02/20 02:44:04 by wkraig           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdbool.h>
 #include <mlx.h>
 #include <stdlib.h>
 #include "libft/libft.h"
 #include <math.h>
 #include <stdio.h>
-
+// разместить перемеггые и структуры для выравнивания 
 typedef struct s_win
 {
+	int		**map;
+	int		**color;
+	int		size;
+	int		fd;
 	void	*ptr;
 	void	*wind;
+	float	start_x;
+	float	start_y;
+	float	angle_x;
+	bool	iso_f;
+	bool	y;
 }				t_win;
 
 typedef struct	s_map
@@ -28,11 +38,16 @@ typedef struct	s_map
 	float	x2;
 	float	y1;
 	float	y2;
-	float	start_x;
-	float	start_y;
 	float	x;
 	float	y;
 }				t_map;
+
+typedef struct	s_figure
+{
+	int		len;
+	float	move_x;
+	float	move_y;
+}				t_figure;
 
 typedef struct	s_line
 {
@@ -40,18 +55,14 @@ typedef struct	s_line
 	float	d_real;
 	float	x;
 	float	y;
-	int		step;
+	float		step;
 }				t_line;
 
-typedef struct s_data
-{
-	int		**map;
-	int		**color;
-	int		size;
-}			t_data;
-
+void	ft_swap(float *a, float *b);
+float	ft_abs(float a);
+void	iso(float *x, float *y, int z);
 int		ft_atoi_base_16(char *str);
 int		ft_numlen(char *res);
-int		**split_to_arr(char **res, t_data *parse);
-int		**parser(int fd, t_data *parse);
+int		**split_to_arr(char **res, t_win *parse);
+int		**parser(int fd, t_win *parse);
 int ft_validation(char **map);

@@ -6,12 +6,43 @@
 /*   By: wkraig <wkraig@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 18:44:28 by wkraig            #+#    #+#             */
-/*   Updated: 2020/02/05 19:05:52 by wkraig           ###   ########.fr       */
+/*   Updated: 2020/02/20 03:42:00 by wkraig           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // добавить некоторые в либу
 #include "fdf.h"
+
+void	ft_swap(float *a, float *b)
+{
+	float tmp;
+
+	tmp = *b;
+	*a = *a + *b;
+	*b = *a - *b;
+	*a = tmp;
+}
+
+float	ft_abs(float a)
+{
+	if (a < 0)
+		a *= -1;
+	return (a);
+}
+
+void	iso(float *x, float *y, int z)
+{
+	float x2;
+	float	y2;
+
+	x2 = *x;
+	y2 = *y;
+	*y = cos(1) * *y - sin(1) * z;
+	// *x = sin(1) * *x - cos(1) * z;
+	// *y = cos(1) * *y - sin(1) - z;
+	// *x = sin(1) * *x - cos(1) - z;
+	// *y = x * cos
+}
 
 static int		find_num(char c)
 {
