@@ -6,7 +6,7 @@
 /*   By: wkraig <wkraig@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 17:12:45 by wkraig            #+#    #+#             */
-/*   Updated: 2020/02/20 17:49:05 by wkraig           ###   ########.fr       */
+/*   Updated: 2020/02/21 20:01:47 by wkraig           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ int		**parser(int fd, t_win *win)
 	line = NULL;
 	while((ret = read(fd, buf, 250)))
 	{
+		if (ret < 0)
+			return (0);
 		buf[ret] = '\0';
 		if (!line)
 			line = ft_strnew(1);

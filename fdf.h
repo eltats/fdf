@@ -6,7 +6,7 @@
 /*   By: wkraig <wkraig@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 17:12:50 by wkraig            #+#    #+#             */
-/*   Updated: 2020/02/20 17:25:48 by wkraig           ###   ########.fr       */
+/*   Updated: 2020/02/21 17:44:07 by wkraig           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct s_win
 	int		**color;
 	int		size;
 	int		fd;
+	float	zoom;
 	void	*ptr;
 	void	*wind;
 	float	start_x;
@@ -64,6 +65,12 @@ typedef struct	s_line
 	float		step;
 }				t_line;
 
+void	draw_line_x(t_map coord, t_win *win, int z, int z0);
+void	draw_line_y(t_map coord, t_win *win, int z, int z0);
+int	keys(int key, t_win *win);
+int		exit_form(int key, t_win *win);
+void	create_figure(t_win *win, t_figure *changes);
+int		ft_color(int z, int z0, t_win *win, int color);
 void	angle(float *x, float *y, int *z, t_win *win);
 void	draw_line_x(t_map coord, t_win *win, int z, int z0);
 void	ft_swap(float *a, float *b);
