@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wkraig <wkraig@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hcloves <hcloves@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 17:12:50 by wkraig            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2020/02/21 17:44:07 by wkraig           ###   ########.fr       */
+=======
+/*   Updated: 2020/02/21 16:33:51 by hcloves          ###   ########.fr       */
+>>>>>>> dfee80662ea274bf4ae14a00615f9641b5a9868d
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +25,7 @@ typedef struct s_win
 {
 	int		**map;
 	int		**color;
+	void	*inter;
 	int		size;
 	int		fd;
 	float	zoom;
@@ -65,12 +70,16 @@ typedef struct	s_line
 	float		step;
 }				t_line;
 
+<<<<<<< HEAD
 void	draw_line_x(t_map coord, t_win *win, int z, int z0);
 void	draw_line_y(t_map coord, t_win *win, int z, int z0);
 int	keys(int key, t_win *win);
 int		exit_form(int key, t_win *win);
 void	create_figure(t_win *win, t_figure *changes);
 int		ft_color(int z, int z0, t_win *win, int color);
+=======
+void    menu(t_win *menu);
+>>>>>>> dfee80662ea274bf4ae14a00615f9641b5a9868d
 void	angle(float *x, float *y, int *z, t_win *win);
 void	draw_line_x(t_map coord, t_win *win, int z, int z0);
 void	ft_swap(float *a, float *b);
