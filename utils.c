@@ -3,33 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wkraig <wkraig@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hcloves <hcloves@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 18:44:28 by wkraig            #+#    #+#             */
-/*   Updated: 2020/02/20 17:23:29 by wkraig           ###   ########.fr       */
+/*   Updated: 2020/02/22 18:33:45 by hcloves          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // добавить некоторые в либу
 #include "fdf.h"
-
-void	angle(float *x, float *y, int *z, t_win *win)
-{
-	float	prev_x;
-	float	prev_y;
-	float	prev_z;
-
-	prev_x = *x;
-	prev_y = *y;
-	prev_z = *z;
-
-	if (win->angle_x != 0)
-	{
-		// *z *= win->z_zoom;
-		*y = prev_y * cos(win->angle_x) + prev_z * sin(win->angle_x);
-		*z = -prev_y * sin(win->angle_x) + prev_z * cos(win->angle_x);
-	}
-}
 
 void	ft_swap(float *a, float *b)
 {
@@ -46,11 +28,6 @@ float	ft_abs(float a)
 	if (a < 0)
 		a *= -1;
 	return (a);
-}
-
-void	rotate(float *x, float *y, int z, t_win *win)
-{
-	
 }
 
 void	iso(float *x, float *y, int z, t_win *win)
