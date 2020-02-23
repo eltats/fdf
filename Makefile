@@ -6,13 +6,13 @@
 #    By: hcloves <hcloves@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/23 15:36:26 by hcloves           #+#    #+#              #
-#    Updated: 2020/02/23 19:56:14 by hcloves          ###   ########.fr        #
+#    Updated: 2020/02/23 23:22:28 by hcloves          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fdf
 
-SRC = main.c interface.c parse.c utils.c validation.c draw_x.c draw_y.c key.c utils2.c color.c \
+SRC = main.c interface.c parse.c utils.c draw_x.c draw_y.c key.c utils2.c \
 		control.c
 
 # compiler

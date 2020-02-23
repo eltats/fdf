@@ -6,7 +6,7 @@
 /*   By: hcloves <hcloves@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/22 19:37:28 by hcloves           #+#    #+#             */
-/*   Updated: 2020/02/23 20:35:24 by hcloves          ###   ########.fr       */
+/*   Updated: 2020/02/23 23:18:45 by hcloves          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,15 @@ void	asf(t_win *win, int z, int z0, t_map copy)
 	win->dv = true;
 	draw_line_x(copy, win, z, z0);
 	win->dv = false;
-	return ; 
+	return ;
 }
 
-void	zaloop_bresemham_y(t_line line, t_map copy, int color, t_win *win)
+void	zeloop_bresemham_y(t_line line, t_map copy, int color, t_win *win)
 {
 	while (line.y <= copy.y2)
 	{
-		mlx_pixel_put(win->ptr, win->wind, (int)line.x, (int)line.y, color * win->random);
+		mlx_pixel_put(win->ptr, win->wind,
+		(int)line.x, (int)line.y, color * win->random);
 		line.y++;
 		line.d_act += line.d_real;
 		if (line.d_act > 0.5)
@@ -37,11 +38,11 @@ void	zaloop_bresemham_y(t_line line, t_map copy, int color, t_win *win)
 
 void	bresenham_y(t_map copy, t_win *win, int z, int z0)
 {
-	t_line line;
-	int color;
+	t_line	line;
+	int		color;
 
 	ft_bzero(&line, sizeof(line));
-    color = ft_color(z, z0, win, color);
+	color = ft_color(z, z0, win, color);
 	if (ft_abs(copy.x2 - copy.x1) > ft_abs(copy.y2 - copy.y1))
 		return (asf(win, z, z0, copy));
 	line.step = 1;
@@ -56,7 +57,7 @@ void	bresenham_y(t_map copy, t_win *win, int z, int z0)
 	if (line.x > copy.x2)
 		line.step = -1;
 	line.d_act = 0;
-	zaloop_bresemham_y(line, copy, color, win);
+	zeloop_bresemham_y(line, copy, color, win);
 }
 
 void	draw_line_y(t_map coord, t_win *win, int z, int z0)

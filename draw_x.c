@@ -6,7 +6,7 @@
 /*   By: hcloves <hcloves@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/22 19:37:16 by hcloves           #+#    #+#             */
-/*   Updated: 2020/02/23 20:30:48 by hcloves          ###   ########.fr       */
+/*   Updated: 2020/02/23 23:01:14 by hcloves          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ void	asf2(t_win *win, int z, int z0, t_map copy)
 	win->dv = true;
 	draw_line_y(copy, win, z, z0);
 	win->dv = false;
-	return ; 
+	return ;
 }
 
-void	zaloop_bresemham_x(t_line line, t_map copy, int color, t_win *win)
+void	zeloop_bresemham_x(t_line line, t_map copy, int color, t_win *win)
 {
 	while (line.x <= copy.x2)
 	{
@@ -32,18 +32,18 @@ void	zaloop_bresemham_x(t_line line, t_map copy, int color, t_win *win)
 			line.y += line.step;
 			line.d_act--;
 		}
-	}    
+	}
 }
 
 void	bresenham_x(t_map copy, t_win *win, int z, int z0)
 {
-    t_line	line;
-    int		color;
+	t_line	line;
+	int		color;
 
 	ft_bzero(&line, sizeof(line));
-    color = ft_color(z, z0, win, color);
-    if (ft_abs(copy.y2 - copy.y1) > ft_abs(copy.x2 - copy.x1))
-        return (asf2(win, z, z0, copy));
+	color = ft_color(z, z0, win, color);
+	if (ft_abs(copy.y2 - copy.y1) > ft_abs(copy.x2 - copy.x1))
+		return (asf2(win, z, z0, copy));
 	line.step = 1;
 	line.d_real = ft_abs(copy.y2 - copy.y1) / ft_abs(copy.x2 - copy.x1);
 	if (copy.x1 > copy.x2)
@@ -56,23 +56,20 @@ void	bresenham_x(t_map copy, t_win *win, int z, int z0)
 	if (line.y > copy.y2)
 		line.step = -1;
 	line.d_act = 0;
-    zaloop_bresemham_x(line, copy, color, win);
+	zeloop_bresemham_x(line, copy, color, win);
 }
-
 
 void	draw_line_x(t_map coord, t_win *win, int z, int z0)
 {
-
 	t_map	copy;
-	
+
 	copy = coord;
 	if (win->dv == false)
 		copy.x2 += 1 * win->zoom;
-	
 	if (win->iso == true && win->dv == false)
 	{
 		iso(&copy.x1, &copy.y1, z * win->z_zoom, win);
-		iso(&copy.x2, &copy.y2, z0 * win->z_zoom , win);
+		iso(&copy.x2, &copy.y2, z0 * win->z_zoom, win);
 	}
-    bresenham_x(copy, win, z, z0);
+	bresenham_x(copy, win, z, z0);
 }

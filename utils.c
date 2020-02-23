@@ -6,16 +6,15 @@
 /*   By: hcloves <hcloves@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 18:44:28 by wkraig            #+#    #+#             */
-/*   Updated: 2020/02/22 18:33:45 by hcloves          ###   ########.fr       */
+/*   Updated: 2020/02/23 23:25:50 by hcloves          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// добавить некоторые в либу
 #include "fdf.h"
 
-void	ft_swap(float *a, float *b)
+void			ft_swap(float *a, float *b)
 {
-	float tmp;
+	float	tmp;
 
 	tmp = *b;
 	*a = *a + *b;
@@ -23,14 +22,14 @@ void	ft_swap(float *a, float *b)
 	*a = tmp;
 }
 
-float	ft_abs(float a)
+float			ft_abs(float a)
 {
 	if (a < 0)
 		a *= -1;
 	return (a);
 }
 
-void	iso(float *x, float *y, int z, t_win *win)
+void			iso(float *x, float *y, int z, t_win *win)
 {
 	float	x2;
 	float	y2;
@@ -43,7 +42,7 @@ void	iso(float *x, float *y, int z, t_win *win)
 
 static int		find_num(char c)
 {
-	int i;
+	int			i;
 	const char	str[17] = "0123456789abcdef";
 	const char	str2[17] = "0123456789ABCDEF";
 
@@ -57,11 +56,11 @@ static int		find_num(char c)
 	return (0);
 }
 
-int		ft_atoi_base_16(char *str)
+int				ft_atoi_base_16(char *str)
 {
 	int		nb;
 	int		i;
-	
+
 	nb = 0;
 	i = 0;
 	while (str[i] == '0' || str[i] == 'x')

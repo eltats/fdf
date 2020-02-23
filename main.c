@@ -6,7 +6,7 @@
 /*   By: hcloves <hcloves@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 17:12:48 by wkraig            #+#    #+#             */
-/*   Updated: 2020/02/23 20:26:01 by hcloves          ###   ########.fr       */
+/*   Updated: 2020/02/23 23:34:42 by hcloves          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,32 +27,22 @@ int		ft_color(int z, int z0, t_win *win, int color)
 		color = 0xA5009D;
 	if (z * win->z_zoom > 100 || z0 * win->z_zoom > 100)
 		color = 0xAA009D;
-	if (z * win->z_zoom > 120 || z0 * win->z_zoom > 120)
+	if (z * win->z_zoom > 120 || z0 * win->z_zoom > 140)
 		color = 0xB4009D;
-	if (z * win->z_zoom > 140 || z0 * win->z_zoom > 140)
+	if (z * win->z_zoom > 140 || z0 * win->z_zoom > 160)
 		color = 0xB9009D;
-	if (z * win->z_zoom > 160 || z0 * win->z_zoom > 160)
+	else if (z * win->z_zoom > 140 || z0 * win->z_zoom > 140)
 		color = 0xBE009D;
-	else if (z * win->z_zoom > 160 || z0 * win->z_zoom > 160)
-		color = 0xCD009D;
 	if (win->random != 1)
 		color += win->random;
 	return (color);
 }
 
-// void	zxc(int i, int j, t_map coord, t_win *win)
-// {
-	
-// 				win->z = win->map[i][j];
-// 				win->z0 = win->map[i][j + 1];
-// 				win->bonus = win->color[i][j];
-// 				draw_line_x(coord, win);
-// }
 void	loop_figure(t_win *win, t_map coord, int len)
 {
 	int		i;
 	int		j;
-	
+
 	i = 0;
 	while (win->map[i])
 	{
@@ -65,9 +55,9 @@ void	loop_figure(t_win *win, t_map coord, int len)
 			coord.y1 = win->start_y + coord.y;
 			coord.y2 = win->start_y + coord.y;
 			if (j < win->size - 1)
-				draw_line_x(coord, win, win->map[i][j], win->map[i][j + 1], win->bonus);
+				draw_line_x(coord, win, win->map[i][j], win->map[i][j + 1]);
 			if (i < len - 1 && j < win->size)
-				draw_line_y(coord, win, win->map[i][j], win->map[i + 1][j], win->bonus);
+				draw_line_y(coord, win, win->map[i][j], win->map[i + 1][j]);
 			coord.x += 1 * win->zoom;
 			j++;
 		}
@@ -94,30 +84,48 @@ void	create_figure(t_win *win, t_figure *changes)
 	menu(win);
 }
 
-int main(int ac, char **av)
+void	ft_free(t_win *win, t_figure *changes)
 {
-	t_win	*win;
+	int	i;
+
+	i = 0;
+	while (win->map[i])
+	{
+		free(win->color[i]);
+		free(win->map[i]);
+		i++;
+	}
+	free(win->map);
+	free(win->color);
+	free(changes);
+	close(win->fd);
+	free(win);
+}
+
+int		main(int ac, char **av)
+{
+	t_win		*win;
 	t_figure	*changes;
-	t_map	copy;
+	t_map		copy;
 
 	if (ac == 2)
 	{
 		win = (t_win *)ft_memalloc(sizeof(t_win));
-		win->fd = open(av[1], O_RDONLY);
-		win->map = parser(win->fd, win);
+		if (!(win->fd = open(av[1], O_RDONLY)))
+			return (0);
+		if (!(win->map = parser(win->fd, win)))
+			return (0);
 		win->ptr = mlx_init();
 		changes = (t_figure *)ft_memalloc(sizeof(t_figure));
-		win->wind = mlx_new_window(win->ptr, 2000, 1200, "FdF");		
+		win->wind = mlx_new_window(win->ptr, 2000, 1200, "FdF");
 		win->random = 1;
-		win->iso = false;
 		win->z_zoom = 1;
 		win->zoom = 5;
-		win->dv = false;
 		create_figure(win, changes);
 		mlx_key_hook(win->wind, exit_form, win);
 		mlx_hook(win->wind, 2, 0, keys, win);
 		mlx_loop(win->ptr);
-		close(win->fd);
+		ft_free(win, changes);
 	}
 	return (0);
 }
