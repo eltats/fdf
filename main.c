@@ -6,7 +6,7 @@
 /*   By: hcloves <hcloves@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 17:12:48 by wkraig            #+#    #+#             */
-/*   Updated: 2020/02/23 18:12:34 by hcloves          ###   ########.fr       */
+/*   Updated: 2020/02/23 20:26:01 by hcloves          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,10 @@ void	loop_figure(t_win *win, t_map coord, int len)
 				draw_line_x(coord, win, win->map[i][j], win->map[i][j + 1], win->bonus);
 			if (i < len - 1 && j < win->size)
 				draw_line_y(coord, win, win->map[i][j], win->map[i + 1][j], win->bonus);
-			coord.x += 25;
+			coord.x += 1 * win->zoom;
 			j++;
 		}
-		coord.y += 25;
+		coord.y += 1 * win->zoom;
 		i++;
 	}
 }
@@ -111,6 +111,7 @@ int main(int ac, char **av)
 		win->random = 1;
 		win->iso = false;
 		win->z_zoom = 1;
+		win->zoom = 5;
 		win->dv = false;
 		create_figure(win, changes);
 		mlx_key_hook(win->wind, exit_form, win);

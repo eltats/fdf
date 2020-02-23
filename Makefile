@@ -6,7 +6,7 @@
 #    By: hcloves <hcloves@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/23 15:36:26 by hcloves           #+#    #+#              #
-#    Updated: 2020/02/23 19:54:52 by hcloves          ###   ########.fr        #
+#    Updated: 2020/02/23 19:56:14 by hcloves          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,6 @@ $(NAME): $(LIBFT) $(OBJ)
 clean:
 	/bin/rm -f $(OBJ) -silent
 	make -C libft clean -silent
-	make -C minilibx_macos clean -silent
 
 fclean: clean
 	/bin/rm -f $(NAME) -silent

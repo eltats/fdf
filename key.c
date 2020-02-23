@@ -6,7 +6,7 @@
 /*   By: hcloves <hcloves@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/22 19:37:39 by hcloves           #+#    #+#             */
-/*   Updated: 2020/02/22 19:46:37 by hcloves          ###   ########.fr       */
+/*   Updated: 2020/02/23 20:26:17 by hcloves          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,20 @@ int		keys(int key, t_win *win, char **av)
     }
     if (key == 123 || key == 124 || key == 126 || key == 125)
         move_key(key, win);
+	if (key == 69)
+	{
+		if (win->zoom < 40)
+			win->zoom += 1;
+		mlx_clear_window(win->ptr, win->wind);
+		create_figure(win, changes);
+	}
+	if (key == 78)
+	{
+		if (win->zoom > 5)
+			win->zoom -= 1;
+		mlx_clear_window(win->ptr, win->wind);
+		create_figure(win, changes);
+	}
 	if (key == 35 || key == 34)
         projection(key, win);
 	if (key == 47 || key == 43)

@@ -6,7 +6,7 @@
 /*   By: hcloves <hcloves@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 17:12:50 by wkraig            #+#    #+#             */
-/*   Updated: 2020/02/23 17:36:24 by hcloves          ###   ########.fr       */
+/*   Updated: 2020/02/23 20:37:44 by hcloves          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct s_win
 	int		**color;
 	void	*inter;
 	int		size;
+	int		zoom;
 	int		fd;
 	int		z0;
 	int		z;
@@ -80,7 +81,7 @@ typedef struct	s_line
 
 
 void    menu(t_win *menu);
-void	draw_line_x(t_map coord, t_win *win, int z, int z0, int bonus);
+void	draw_line_x(t_map coord, t_win *win, int z, int z0);
 void	ft_swap(float *a, float *b);
 float	ft_abs(float a);
 void	iso(float *x, float *y, int z, t_win *win);
@@ -100,16 +101,16 @@ int     change_color(int key, t_win *win);
 int     change_z_zoom(int key, t_win *win);
 void	draw_proection_iso_x(t_map coord, t_win *win, int z, int z0);
 void	draw_proection_iso_y(t_map coord, t_win *win, int z, int z0);
-void	asf(t_win *win, int z, int z0, t_map copy, int bonus);
-void	asf2(t_win *win, int z, int z0, t_map copy, int bonus);
+void	asf(t_win *win, int z, int z0, t_map copy);
+void	asf2(t_win *win, int z, int z0, t_map copy);
 float	absolute(float x);
 int		exit_form(int key, t_win *win);
 int		ft_color(int z, int z0, t_win *win, int color);
 
-void	bresenham_x(t_map copy, t_win *win, int z, int z0, int bonus);
-void	draw_line_x(t_map coord, t_win *win, int z, int z0, int bonus);
+void	bresenham_x(t_map copy, t_win *win, int z, int z0);
+void	draw_line_x(t_map coord, t_win *win, int z, int z0);
 void	zaloop_bresemham_x(t_line line, t_map copy, int color, t_win *win);
 
-void	draw_line_y(t_map coord, t_win *win, int z, int z0, int bonus);
-void	bresenham_y(t_map copy, t_win *win, int z, int z0, int bonus);
+void	draw_line_y(t_map coord, t_win *win, int z, int z0);
+void	bresenham_y(t_map copy, t_win *win, int z, int z0);
 void	zaloop_bresemham_y(t_line line, t_map copy, int color, t_win *win);
