@@ -6,7 +6,7 @@
 /*   By: hcloves <hcloves@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 17:12:50 by wkraig            #+#    #+#             */
-/*   Updated: 2020/02/22 21:28:58 by hcloves          ###   ########.fr       */
+/*   Updated: 2020/02/23 17:36:24 by hcloves          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,10 @@ int		**split_to_arr(t_parse	*prs, t_win *parse);
 int		**parser(int fd, t_win *parse);
 int 	ft_validation(char **map);
 int		keys(int key, t_win *win, char **av);
+
 void	create_figure(t_win *win, t_figure *changes);
+void	loop_figure(t_win *win, t_map coord, int len);
+
 int     move_key(int key, t_win *win);
 int     projection(int key, t_win *win);
 int     change_color(int key, t_win *win);

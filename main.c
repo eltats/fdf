@@ -6,7 +6,7 @@
 /*   By: hcloves <hcloves@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 17:12:48 by wkraig            #+#    #+#             */
-/*   Updated: 2020/02/22 21:32:30 by hcloves          ###   ########.fr       */
+/*   Updated: 2020/02/23 18:12:34 by hcloves          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,14 @@ int		ft_color(int z, int z0, t_win *win, int color)
 	return (color);
 }
 
-void	zxc(int i, int j, t_map coord, t_win *win)
-{
+// void	zxc(int i, int j, t_map coord, t_win *win)
+// {
 	
-				win->z = win->map[i][j];
-				win->z0 = win->map[i][j + 1];
-				win->bonus = win->color[i][j];
-				draw_line_x(coord, win);
-}
+// 				win->z = win->map[i][j];
+// 				win->z0 = win->map[i][j + 1];
+// 				win->bonus = win->color[i][j];
+// 				draw_line_x(coord, win);
+// }
 void	loop_figure(t_win *win, t_map coord, int len)
 {
 	int		i;
@@ -65,15 +65,9 @@ void	loop_figure(t_win *win, t_map coord, int len)
 			coord.y1 = win->start_y + coord.y;
 			coord.y2 = win->start_y + coord.y;
 			if (j < win->size - 1)
-			{
-			}
+				draw_line_x(coord, win, win->map[i][j], win->map[i][j + 1], win->bonus);
 			if (i < len - 1 && j < win->size)
-			{
-				win->z = win->map[i][j];
-				win->z0 = win->map[i + 1][j];
-				win->bonus = win->color[i][j];
-				draw_line_y(coord, win);
-			}
+				draw_line_y(coord, win, win->map[i][j], win->map[i + 1][j], win->bonus);
 			coord.x += 25;
 			j++;
 		}
@@ -111,20 +105,6 @@ int main(int ac, char **av)
 		win = (t_win *)ft_memalloc(sizeof(t_win));
 		win->fd = open(av[1], O_RDONLY);
 		win->map = parser(win->fd, win);
-		int i, j = 0;
-		i  = 0;
-		// while (win->map[i])
-		// {
-		// 	j = 0;
-		// 	while (j < win->size)
-		// 	{
-		// 		printf("%3d", win->map[i][j]);
-		// 		j++;
-		// 	}
-		// 	printf("\n");
-		// 	i++;
-		// }
-		// exit(1);
 		win->ptr = mlx_init();
 		changes = (t_figure *)ft_memalloc(sizeof(t_figure));
 		win->wind = mlx_new_window(win->ptr, 2000, 1200, "FdF");		
