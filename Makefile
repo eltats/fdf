@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hcloves <hcloves@student.42.fr>            +#+  +:+       +#+         #
+#    By: wkraig <wkraig@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/23 15:36:26 by hcloves           #+#    #+#              #
-#    Updated: 2020/02/23 23:51:40 by hcloves          ###   ########.fr        #
+#    Updated: 2020/02/29 06:15:43 by wkraig           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ SRC = main.c interface.c parse.c utils.c draw_x.c draw_y.c key.c utils2.c \
 
 # compiler
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -g
 FDEBUG = -g
 
 OBJ = $(SRC:.c=.o)
@@ -26,7 +26,7 @@ OBJ = $(SRC:.c=.o)
 LIBFT = libft/libft.a
 
 # fraimwork
-MLXFRAIMWORK = -L ./minilibx_macos -lmlx -framework OpenGL -framework AppKit
+MLXFRAIMWORK = -L ./minilibx_macos
 LIBFRAIMWORK = -L ./libft -lft 
 
 HEADER = 

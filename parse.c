@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcloves <hcloves@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wkraig <wkraig@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 17:12:45 by wkraig            #+#    #+#             */
-/*   Updated: 2020/02/23 23:29:33 by hcloves          ###   ########.fr       */
+/*   Updated: 2020/03/02 17:53:22 by wkraig           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,74 +30,74 @@ int		ft_filenum(char *res)
 	return (len);
 }
 
-void	big_if(t_parse *prs, t_win *parse)
+void	get_numbers(int *file_len, int *str_len, char **map)
 {
-	while (prs->map_l[prs->i][prs->j])
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	while (map[i])
 	{
-		if (ft_isdigit(prs->map_l[prs->i][prs->j])
-		|| prs->map_l[prs->i][prs->j] == '-')
-		{
-			parse->map[prs->i][prs->k] = ft_atoi(&prs->map_l[prs->i][prs->j]);
-			while (ft_isdigit(prs->map_l[prs->i][prs->j])
-			|| prs->map_l[prs->i][prs->j] == '-')
-				prs->j++;
-			if (prs->map_l[prs->i][prs->j] == ',')
-			{
-				prs->j++;
-				parse->color[prs->i][prs->k] =
-				ft_atoi_base_16(&prs->map_l[prs->i][prs->j]);
-			}
-			prs->k++;
-		}
-		prs->j++;
+		if (i == 0)
+			j = ft_filenum(map[i]);
+		i++;
 	}
+	*file_len = i;
+	*str_len = j;
 }
 
-int		**split_to_arr(t_parse *prs, t_win *parse)
+int		**split_to_arr(int fd, t_win *parse, int file_len, int str_len)
 {
-	parse->color = (int **)ft_memalloc(sizeof(int *)
-	* (ft_strlen(*prs->map_l) + 1));
-	parse->map = (int **)ft_memalloc(sizeof(int *)
-	* (ft_strlen(*prs->map_l) + 1));
-	while (prs->map_l[prs->i])
-	{
-		parse->color[prs->i] = (int *)ft_memalloc(sizeof(int)
-		* (ft_filenum(prs->map_l[prs->i]) + 1));
-		parse->map[prs->i] = (int *)ft_memalloc(sizeof(int)
-		* (ft_filenum(prs->map_l[prs->i]) + 1));
-		prs->j = 0;
-		prs->k = 0;
-		big_if(prs, parse);
-		parse->size = prs->k;
-		prs->i++;
-	}
-	parse->map[prs->i] = NULL;
-	parse->start_x = 0;
-	parse->start_y = 0;
-	return (parse->map);
-}
-
-int		**parser(int fd, t_win *win)
-{
-	char	buf[251];
+	int		**matrix;
+	int		i;
+	int		j;
+	int		k;
 	char	*line;
-	int		ret;
-	int		**retyrn;
-	t_parse	*prs;
 
-	line = NULL;
-	ft_bzero(buf, 251);
-	prs = (t_parse *)ft_memalloc(sizeof(t_parse));
-	while ((ret = read(fd, buf, 250)) > 0)
+	matrix = (int **)ft_memalloc(sizeof(int *) * (file_len + 1));
+	i = 0;
+	while ((get_next_line(fd, &line)) > 0)
 	{
-		buf[ret] = '\0';
-		if (!line)
-			line = ft_strnew(1);
-		line = ft_strjoin(line, buf);
+		matrix[i] = (int *)ft_memalloc(sizeof(int) * (str_len));
+		j = 0;
+		k = 0;
+		while (line[j])
+		{
+			if (ft_isdigit(line[j]) || line[j] == '-')
+			{
+				matrix[i][k] = ft_atoi(&line[j]);
+				while (ft_isdigit(line[j]) || line[j] == '-')
+					j++;
+				k++;
+			}
+			j++;
+		}
+		i++;
 	}
-	prs->map_l = ft_strsplit(line, '\n');
-	free(line);
-	retyrn = split_to_arr(prs, win);
-	free(prs);
-	return (retyrn);
+	parse->size = k;
+	matrix[i] = NULL;
+	return (matrix);
+}
+
+int		**parser(int fd, t_win *win, char *filename)
+{
+	char	*line;
+	int		i;
+	int		len;
+	int		**matrix;
+
+	i = 0;
+	len = 0;
+	while((get_next_line(fd, &line)) > 0)
+	{
+		if (i == 0)
+			len = ft_filenum(line);
+		i++;
+		free(line);
+	}
+	close(fd);
+	fd = open(filename, O_RDONLY);
+	matrix = split_to_arr(fd, win, i, len);
+	return (matrix);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcloves <hcloves@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wkraig <wkraig@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 17:12:50 by wkraig            #+#    #+#             */
-/*   Updated: 2020/02/23 23:44:37 by hcloves          ###   ########.fr       */
+/*   Updated: 2020/03/02 17:54:33 by wkraig           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 typedef struct		s_win
 {
 	int		**map;
-	int		**color;
 	void	*inter;
 	int		size;
 	int		zoom;
@@ -98,8 +97,8 @@ int					ft_atoi_base_16(char *str);
 int					ft_color(int z, int z0, t_win *win, int color);
 void				create_figure(t_win *win, t_figure *changes);
 void				loop_figure(t_win *win, t_map coord, int len);
-int					**split_to_arr(t_parse	*prs, t_win *parse);
-int					**parser(int fd, t_win *parse);
+int					**split_to_arr(int fd, t_win *parse, int file_len, int str_len);
+int					**parser(int fd, t_win *win, char *filename);
 int					ft_validation(char **map);
 void				iso(float *x, float *y, int z, t_win *win);
 void				bresenham_x(t_map copy, t_win *win, int z, int z0);
