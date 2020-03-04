@@ -6,7 +6,7 @@
 #    By: wkraig <wkraig@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/23 15:36:26 by hcloves           #+#    #+#              #
-#    Updated: 2020/02/29 06:15:43 by wkraig           ###   ########.fr        #
+#    Updated: 2020/03/04 17:10:13 by wkraig           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ OBJ = $(SRC:.c=.o)
 LIBFT = libft/libft.a
 
 # fraimwork
-MLXFRAIMWORK = -L ./minilibx_macos
+MLXFRAIMWORK = -L ./minilibx_macos -lmlx -framework OpenGL -framework AppKit
 LIBFRAIMWORK = -L ./libft -lft 
 
 HEADER = 

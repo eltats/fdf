@@ -6,7 +6,7 @@
 /*   By: wkraig <wkraig@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 17:12:45 by wkraig            #+#    #+#             */
-/*   Updated: 2020/03/02 17:53:22 by wkraig           ###   ########.fr       */
+/*   Updated: 2020/03/02 18:08:06 by wkraig           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		ft_filenum(char *res)
 
 	i = 0;
 	len = 0;
-	while (res[i])
+	while (res[i] != '\0')
 	{
 		if (ft_isdigit(res[i]))
 			len++;
@@ -55,24 +55,25 @@ int		**split_to_arr(int fd, t_win *parse, int file_len, int str_len)
 	int		k;
 	char	*line;
 
-	matrix = (int **)ft_memalloc(sizeof(int *) * (file_len + 1));
 	i = 0;
+	matrix = (int **)ft_memalloc(sizeof(int *) * (file_len + 1));
 	while ((get_next_line(fd, &line)) > 0)
 	{
 		matrix[i] = (int *)ft_memalloc(sizeof(int) * (str_len));
 		j = 0;
 		k = 0;
-		while (line[j])
+		while (line[j] != '\0')
 		{
-			if (ft_isdigit(line[j]) || line[j] == '-')
+			if (line[j] && (ft_isdigit(line[j]) || line[j] == '-'))
 			{
 				matrix[i][k] = ft_atoi(&line[j]);
-				while (ft_isdigit(line[j]) || line[j] == '-')
+				while (line[j] && (ft_isdigit(line[j]) || line[j] == '-'))
 					j++;
 				k++;
 			}
 			j++;
 		}
+		free(line);
 		i++;
 	}
 	parse->size = k;
